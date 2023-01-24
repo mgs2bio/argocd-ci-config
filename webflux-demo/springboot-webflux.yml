@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       -  name: springboot-webflux 
-         image: mgs2bio/springboot-webflux-demo:10549f2
+         image: mgs2bio/springboot-webflux-demo:48bcc79
          imagePullPolicy: IfNotPresent
         #readinessProbe:
         #   httpGet:
