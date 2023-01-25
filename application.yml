@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/mgs2bio/argocd-ci-config.git
     targetRevision: HEAD
-    path: charts
+    path: charts/webflux-demo
   destination: 
     server: https://kubernetes.default.svc
     namespace: app
