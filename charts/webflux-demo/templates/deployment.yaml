@@ -37,6 +37,22 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+           - name: DB_USERNAME
+             valueFrom:
+               secretKeyRef:
+                  name: mongodb-secret 
+                  key: mongo-root-username
+           - name: DB_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                  name: mongodb-secret 
+                  key: mongo-root-password
+           - name: DB_URL
+             valueFrom:
+               configMapKeyRef:
+                  name: mongodb-configmap
+                  key: database_url
           # livenessProbe:
           #   httpGet:
           #     path: /
