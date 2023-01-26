@@ -8,7 +8,7 @@ image:
   repository: mgs2bio/springboot-webflux-demo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "3fbdac4"
+  tag:775245c
 
 imagePullSecrets: []
 nameOverride: "springboot-webflux "
