@@ -5,12 +5,31 @@ metadata:
   labels:
     {{- include "webflux-demo.labels" . | nindent 4 }}
 spec:
+  # Kubernetes allows clients to discover pod IPs through DNS lookups. 
+  # Usually, when you perform a DNS lookup for a service, the DNS server returns 
+  # a single IP which is the service’s cluster IP. But if you don’t need the cluster IP 
+  # for your service, you can set ClusterIP to None (Headless Service), then the DNS server will return 
+  # the individual pod IPs instead of the service IP.Then client can connect to any of them.
+  # Headless Service is used for stateful set.
+
+  # clusterIP: None
   type: {{ .Values.service.type }}
   ports:
+      # port of the service
     - port: {{ .Values.service.port }}
+      # port on the pod where the service is mapped to
       targetPort: {{ .Values.service.targetPort }}
-      nodePort: {{ .Values.service.nodePort }}
+      # nodePort is used for NodePort and LoadBalancer service type.
+      # When service type is NodePort, traffic is directly routed to 
+      # nodes on this port (unsecured..) and then redirected to the service which forwards
+      # traffic to a random pod.
+      # LoadBalacner is an extension to NodePort service. LoadBalancer directs traffic
+      # to the NodePort on the worker node. So Node is accessed through load balancer, not externally.
+      # nodePort: {{ .Values.service.nodePort }}
       protocol: TCP
+      # name is optional for single port service.
+      # For multiple-port service (micro service and sidecar container),
+      # name must be defined for each port.
       name: http
   selector:
     {{- include "webflux-demo.selectorLabels" . | nindent 4 }}
